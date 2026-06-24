@@ -1,4 +1,4 @@
-# GENERADOR-FICHAS-TECNICAS-BY-GD
+# GENERADOR-FICHAS-TECNICAS-BY-GS
 ```html
 <div align="center">
 
