@@ -51,3 +51,8 @@ npm.cmd run preview  # Revisa la compilación final
 - `src/export/export-pdf.ts`: generación del PDF.
 - `src/export/export-pptx.ts`: generación del PowerPoint.
 - `public/assets/`: fondo, logotipo e imágenes de ejemplo.
+
+
+## Corrección v2
+
+Se retiraron las propiedades `lang` incompatibles con los tipos TypeScript de PptxGenJS 4.0.1.

@@ -11,11 +11,9 @@ export async function exportPptx(fileName: string): Promise<void> {
   pptx.company = "Cubo Makers S.A.C.";
   pptx.subject = "Product Data Sheet";
   pptx.title = fileName;
-  pptx.lang = "es-PE";
   pptx.theme = {
     headFontFace: "Libre Franklin",
-    bodyFontFace: "Libre Franklin",
-    lang: "es-PE"
+    bodyFontFace: "Libre Franklin"
   };
 
   canvases.forEach((canvas) => {
