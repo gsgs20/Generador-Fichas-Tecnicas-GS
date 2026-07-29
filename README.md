@@ -1,6 +1,6 @@
-# Generador de Fichas Técnicas - Cubo Makers
+# Generador de Fichas Técnicas - GS
 
-Aplicación web estática para completar una ficha técnica controlada y descargarla en **PDF** y **PowerPoint**. Funciona completamente en el navegador y puede publicarse gratis mediante GitHub Pages.
+Aplicación web para desarrollar fichas técnicas de forma optimizada (El proyecto está en fase beta)
 
 ## Estado de esta versión
 
