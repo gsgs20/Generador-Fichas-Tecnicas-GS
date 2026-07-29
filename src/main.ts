@@ -61,13 +61,15 @@ function fitAllText(): void {
 
 function updatePreview(): void {
   const productName = inputValue("fn");
-  const scaleA = inputValue("fsa");
   const scaleB = inputValue("fsb");
+  // La escala de estas fichas siempre parte de 1. Aunque el usuario deje
+  // vacío el primer campo, al ingresar el denominador se muestra 1:N.
+  const scaleA = inputValue("fsa") || (scaleB ? "1" : "");
 
   byId("pn").textContent = productName || "Nombre del equipo";
   byId("ps").textContent = motorValue === true ? "Powered 3D Printed Scale Model" : "3D Printed Scale Model";
   byId("pbm").textContent = productName || "-";
-  byId("psc").textContent = scaleA && scaleB ? `${scaleA}:${scaleB}` : "-";
+  byId("psc").textContent = scaleB ? `${scaleA}:${scaleB}` : "-";
 
   byId("pov").textContent = productName
     ? `This 3D-printed scale model of ${productName} is designed for display, showcasing industrial equipment in a compact, detailed format. Made with FDM technology, it uses eco-friendly PLA filaments in various colors.`

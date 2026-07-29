@@ -56,3 +56,9 @@ npm.cmd run preview  # Revisa la compilación final
 ## Corrección v2
 
 Se retiraron las propiedades `lang` incompatibles con los tipos TypeScript de PptxGenJS 4.0.1.
+
+
+## Corrección v3
+
+- La escala usa `1` como numerador predeterminado.
+- Al escribir el denominador, la vista previa, el PDF y el PPT muestran automáticamente `1:N`.
