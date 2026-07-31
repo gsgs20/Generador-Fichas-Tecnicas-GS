@@ -67,7 +67,7 @@ function updatePreview(): void {
   const scaleA = inputValue("fsa") || (scaleB ? "1" : "");
 
   byId("pn").textContent = productName || "Nombre del equipo";
-  byId("ps").textContent = motorValue === true ? "Powered 3D Printed Scale Model" : "3D Printed Scale Model";
+  byId("ps").textContent = motorValue === true ? "Powered 3D Printed Scale Model" : "Stationary 3D Printed Scale Model";
   byId("pbm").textContent = productName || "-";
   byId("psc").textContent = scaleB ? `${scaleA}:${scaleB}` : "-";
 
@@ -76,7 +76,7 @@ function updatePreview(): void {
     : "This 3D-printed scale model is designed for display, showcasing industrial equipment in a compact, detailed format. Made with FDM technology, it uses eco-friendly PLA filaments in various colors.";
 
   byId("fb").textContent = batteryValue === true ? "Batteries required." : batteryValue === false ? "No batteries needed." : "-";
-  byId("fm").textContent = motorValue === true ? "Motorized systems included." : motorValue === false ? "No motor included." : "-";
+  byId("fm").textContent = motorValue === true ? "Motors included." : motorValue === false ? "No motors included." : "-";
 
   const groups = [
     { fields: ["sl", "sw", "sh", "sk"], conversions: ["sl-i", "sw-i", "sh-i", "sk-l"], preview: ["dsl", "dsw", "dsh", "dsk"] },
