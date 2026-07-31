@@ -62,3 +62,9 @@ Se retiraron las propiedades `lang` incompatibles con los tipos TypeScript de Pp
 
 - La escala usa `1` como numerador predeterminado.
 - Al escribir el denominador, la vista previa, el PDF y el PPT muestran automáticamente `1:N`.
+
+
+## Versión 1.1.0
+
+- Añade en la primera página el aviso fijo de temperatura y exposición solar, en la misma posición del PDF de plantilla.
+- El aviso no forma parte del formulario y no puede editarse.

@@ -63,6 +63,7 @@ button,input{font:inherit}
 .info-row{display:grid;grid-template-columns:82px 1fr;min-height:25px;align-items:center;font-size:12px;line-height:1.1}
 .info-row.shaded{background:var(--cubo-grey)}
 .info-row span{padding:5px 10px}.info-row span:nth-child(2){padding-left:9px;overflow:hidden}
+.warning-notice{position:absolute;left:422px;top:902px;width:317px;height:59px;object-fit:fill;display:block;pointer-events:none;user-select:none}
 
 /* Página 2 */
 .technical-image-box{position:absolute;left:100px;top:125px;width:598px;height:167px;display:flex;align-items:center;justify-content:center}
