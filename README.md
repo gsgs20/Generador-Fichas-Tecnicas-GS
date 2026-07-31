@@ -9,8 +9,10 @@ Aplicación web estática para completar una ficha técnica controlada y descarg
 - Recursos gráficos originales de Cubo Makers.
 - Descarga en PDF.
 - Descarga en PPTX (cada página queda como una imagen completa para evitar movimientos accidentales).
-- Imágenes `IMG_01.png` e `IMG_02.png` fijas temporalmente.
-- La carga de imágenes queda pendiente para una siguiente versión.
+- Carga de una imagen del equipo para la página 1.
+- Carga de una imagen del plano técnico para la página 2.
+- Compatibilidad con PNG, JPG/JPEG y WEBP.
+- Las imágenes se centran, conservan su proporción y se incluyen en PDF y PPTX.
 
 ## Instalación local
 
@@ -68,3 +70,12 @@ Se retiraron las propiedades `lang` incompatibles con los tipos TypeScript de Pp
 
 - Añade en la primera página el aviso fijo de temperatura y exposición solar, en la misma posición del PDF de plantilla.
 - El aviso no forma parte del formulario y no puede editarse.
+
+
+## Versión 2.1.0
+
+- Añade carga local de la imagen del equipo y del plano técnico.
+- Valida los formatos PNG, JPG/JPEG y WEBP.
+- Las imágenes no se deforman ni se recortan automáticamente: se escalan proporcionalmente para caber centradas en sus áreas de la plantilla.
+- Se recomienda recortar cada archivo hasta el borde del equipo o plano antes de cargarlo.
+- Las imágenes cargadas se incorporan automáticamente a las exportaciones PDF y PPTX.

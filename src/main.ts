@@ -23,6 +23,74 @@ function getCheckedValues(containerId: string): string[] {
     .map((element) => element.value);
 }
 
+const supportedImageTypes = new Set(["image/png", "image/jpeg", "image/webp"]);
+const supportedImageExtensions = new Set(["png", "jpg", "jpeg", "webp"]);
+
+function isSupportedImage(file: File): boolean {
+  const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
+  return supportedImageTypes.has(file.type.toLowerCase()) || supportedImageExtensions.has(extension);
+}
+
+function readFileAsDataUrl(file: File): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+      if (typeof reader.result === "string") resolve(reader.result);
+      else reject(new Error("No se pudo leer la imagen seleccionada."));
+    }, { once: true });
+    reader.addEventListener("error", () => reject(new Error("No se pudo leer la imagen seleccionada.")), { once: true });
+    reader.readAsDataURL(file);
+  });
+}
+
+function waitForImageLoad(image: HTMLImageElement, source: string): Promise<void> {
+  return new Promise<void>((resolve, reject) => {
+    const handleLoad = (): void => {
+      cleanup();
+      resolve();
+    };
+    const handleError = (): void => {
+      cleanup();
+      reject(new Error("La imagen seleccionada no es válida o está dañada."));
+    };
+    const cleanup = (): void => {
+      image.removeEventListener("load", handleLoad);
+      image.removeEventListener("error", handleError);
+    };
+
+    image.addEventListener("load", handleLoad, { once: true });
+    image.addEventListener("error", handleError, { once: true });
+    image.src = source;
+  });
+}
+
+async function loadUserImage(inputId: string, previewImageId: string, fileNameId: string): Promise<void> {
+  const input = byId<HTMLInputElement>(inputId);
+  const status = byId<HTMLElement>(fileNameId);
+  const file = input.files?.[0];
+  if (!file) return;
+
+  status.classList.remove("file-error");
+
+  if (!isSupportedImage(file)) {
+    input.value = "";
+    status.textContent = "Formato no admitido. Usa PNG, JPG/JPEG o WEBP.";
+    status.classList.add("file-error");
+    return;
+  }
+
+  try {
+    status.textContent = "Cargando imagen…";
+    const source = await readFileAsDataUrl(file);
+    await waitForImageLoad(byId<HTMLImageElement>(previewImageId), source);
+    status.textContent = file.name;
+  } catch (error) {
+    input.value = "";
+    status.textContent = error instanceof Error ? error.message : "No se pudo cargar la imagen.";
+    status.classList.add("file-error");
+  }
+}
+
 function toInches(value: string): string | null {
   const number = Number.parseFloat(value);
   return Number.isFinite(number) && number > 0 ? (number / 2.54).toFixed(1) : null;
@@ -188,6 +256,12 @@ window.tO = () => {
   updatePreview();
 };
 
+byId<HTMLInputElement>("image-page-one").addEventListener("change", () => {
+  void loadUserImage("image-page-one", "page-one-image", "image-page-one-name");
+});
+byId<HTMLInputElement>("image-page-two").addEventListener("change", () => {
+  void loadUserImage("image-page-two", "page-two-image", "image-page-two-name");
+});
 byId("download-pdf").addEventListener("click", () => void runExport("pdf"));
 byId("download-pptx").addEventListener("click", () => void runExport("pptx"));
 window.addEventListener("resize", updatePreviewScale);

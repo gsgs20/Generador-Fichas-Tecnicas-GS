@@ -42,7 +42,21 @@
 <button class="tb" id="mn" onclick="tog('m',false)">No</button>
 </div>
 </div>
-<div class="slbl">Página 2 — Dimensiones</div>
+<div class="fg image-upload-group">
+<label>Imagen del equipo — Página 1</label>
+<p class="upload-instruction">Antes de cargarla, recorta la imagen hasta el borde exacto del equipo. Se colocará centrada, respetando su proporción y sin deformarla. Formatos: PNG, JPG/JPEG o WEBP.</p>
+<label class="file-picker" for="image-page-one"><span>Seleccionar imagen del equipo</span></label>
+<input class="file-input" id="image-page-one" type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"/>
+<span class="file-name" id="image-page-one-name">Actualmente se muestra la imagen de ejemplo.</span>
+</div>
+<div class="slbl">Página 2 — Plano y dimensiones</div>
+<div class="fg image-upload-group">
+<label>Imagen del plano — Página 2</label>
+<p class="upload-instruction">Antes de cargarla, recorta la imagen hasta el borde exacto del plano. Se colocará centrada, respetando su proporción y sin deformarla. Formatos: PNG, JPG/JPEG o WEBP.</p>
+<label class="file-picker" for="image-page-two"><span>Seleccionar imagen del plano</span></label>
+<input class="file-input" id="image-page-two" type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"/>
+<span class="file-name" id="image-page-two-name">Actualmente se muestra el plano de ejemplo.</span>
+</div>
 <div class="fg">
 <label>Scale Model — setDimensionModel</label>
 <div class="dg">
@@ -115,7 +129,7 @@
 <div class="export-actions">
 <button class="export-button export-pdf" id="download-pdf" type="button">Descargar PDF</button>
 <button class="export-button export-ppt" id="download-pptx" type="button">Descargar PPT</button>
-<p class="export-note">Las imágenes de ejemplo se mantienen fijas por ahora. La carga de imágenes se incorporará en la siguiente etapa.</p>
+<p class="export-note">Las imágenes cargadas se incluyen automáticamente en la vista previa, el PDF y el PowerPoint. El generador conserva sus proporciones y no las recorta.</p>
 <p aria-live="polite" class="export-status" id="export-status"></p>
 </div>
 </div>
@@ -129,7 +143,7 @@
             <img class="page-background" src="./assets/template-background.jpg" alt="" />
 
             <div class="main-image-box">
-              <img class="main-product-image" src="./assets/IMG_01.png" alt="Modelo a escala" />
+              <img class="main-product-image" id="page-one-image" src="./assets/IMG_01.png" alt="Modelo a escala" />
             </div>
 
             <div class="product-name fit-text" id="pn" data-max-font="24" data-min-font="16">Nombre del equipo</div>
@@ -172,7 +186,7 @@
             <img class="page-background" src="./assets/template-background.jpg" alt="" />
 
             <div class="technical-image-box">
-              <img class="technical-image" src="./assets/IMG_02.png" alt="Plano técnico con dimensiones" />
+              <img class="technical-image" id="page-two-image" src="./assets/IMG_02.png" alt="Plano técnico con dimensiones" />
             </div>
 
             <section class="dimensions-table" aria-label="Dimensions">
