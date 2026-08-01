@@ -198,13 +198,15 @@ function toggleOtherColor(): void {
 
 function safeFileName(): string {
   const name = inputValue("fn") || "PRODUCT_DATA_SHEET";
-  return name
+  const normalizedName = name
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-zA-Z0-9]+/g, "_")
     .replace(/^_+|_+$/g, "")
     .toUpperCase()
-    .slice(0, 90) || "PRODUCT_DATA_SHEET";
+    .slice(0, 81) || "PRODUCT_DATA_SHEET";
+
+  return `PR000000_${normalizedName}`;
 }
 
 function setExportState(message: string, busy: boolean): void {
