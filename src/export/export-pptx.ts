@@ -130,13 +130,13 @@ function addFilledCell(
   });
 }
 
-function addFooter(slide: PptxGenJS.Slide, pageNumber: 1 | 2): void {
+function addFooter(pptx: PptxGenJS, slide: PptxGenJS.Slide, pageNumber: 1 | 2): void {
   const footer = pageNumber === 1
     ? { x: 3.1496, y: 10.8429, w: 4.915, h: 0.6469 }
     : { x: 3.0744, y: 10.8955, w: 4.915, h: 0.5843 };
 
   // Cubre el pie antiguo que forma parte de la imagen de fondo.
-  slide.addShape(PptxGenJS.ShapeType.rect, {
+  slide.addShape(pptx.ShapeType.rect, {
     x: footer.x,
     y: footer.y,
     w: footer.w,
@@ -294,7 +294,7 @@ function addPageOne(pptx: PptxGenJS, backgroundData: string): void {
     rowY += h;
   });
 
-  addFooter(slide, 1);
+  addFooter(pptx, slide, 1);
 }
 
 function addPageTwo(pptx: PptxGenJS, backgroundData: string): void {
@@ -414,7 +414,7 @@ function addPageTwo(pptx: PptxGenJS, backgroundData: string): void {
     objectName: "Storage instructions"
   });
 
-  addFooter(slide, 2);
+  addFooter(pptx, slide, 2);
 }
 
 export async function exportPptx(fileName: string): Promise<void> {
