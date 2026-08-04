@@ -19,7 +19,7 @@ function inputValue(id: string): string {
 
 function getCheckedValues(containerId: string): string[] {
   return Array.from(document.querySelectorAll<HTMLInputElement>(`#${containerId} input[type="checkbox"]:checked`))
-    .filter((element) => element.id !== "oc" && element.id !== "oa")
+    .filter((element) => element.id !== "oc" && element.id !== "oa" && element.id !== "om")
     .map((element) => element.value);
 }
 
@@ -163,6 +163,8 @@ function updatePreview(): void {
   });
 
   const materials = getCheckedValues("mat");
+  const otherMaterial = inputValue("omi");
+  if (byId<HTMLInputElement>("om").checked && otherMaterial) materials.push(otherMaterial);
   byId("pmat").textContent = materials.length ? `${materials.join(", ")}.` : "-";
 
   const colors = getCheckedValues("col");
@@ -194,6 +196,13 @@ function toggle(type: ToggleType, value: boolean): void {
 function toggleOtherColor(): void {
   const checkbox = byId<HTMLInputElement>("oc");
   const input = byId<HTMLInputElement>("oi");
+  input.style.display = checkbox.checked ? "block" : "none";
+  if (!checkbox.checked) input.value = "";
+}
+
+function toggleOtherMaterial(): void {
+  const checkbox = byId<HTMLInputElement>("om");
+  const input = byId<HTMLInputElement>("omi");
   input.style.display = checkbox.checked ? "block" : "none";
   if (!checkbox.checked) input.value = "";
 }
@@ -258,6 +267,7 @@ declare global {
     u: () => void;
     tog: (type: ToggleType, value: boolean) => void;
     tO: () => void;
+    tM: () => void;
     tA: () => void;
   }
 }
@@ -265,6 +275,10 @@ window.u = updatePreview;
 window.tog = toggle;
 window.tO = () => {
   toggleOtherColor();
+  updatePreview();
+};
+window.tM = () => {
+  toggleOtherMaterial();
   updatePreview();
 };
 window.tA = () => {

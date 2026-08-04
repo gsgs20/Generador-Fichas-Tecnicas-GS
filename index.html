@@ -82,10 +82,17 @@
 <label>Materials</label>
 <div class="cl" id="mat">
 <label><input onchange="u()" type="checkbox" value="Plastic (PLA)"/> Plastic (PLA)</label>
+<label><input onchange="u()" type="checkbox" value="TPU"/> TPU</label>
+<label><input onchange="u()" type="checkbox" value="ABS"/> ABS</label>
+<label><input onchange="u()" type="checkbox" value="NYLON"/> NYLON</label>
 <label><input onchange="u()" type="checkbox" value="Steel"/> Steel</label>
+<label><input onchange="u()" type="checkbox" value="ALUMINUM"/> ALUMINUM</label>
 <label><input onchange="u()" type="checkbox" value="Acrylic"/> Acrylic</label>
 <label><input onchange="u()" type="checkbox" value="MDF"/> MDF</label>
+<label><input onchange="u()" type="checkbox" value="WOOD"/> WOOD</label>
+<label><input id="om" onchange="tM();u()" type="checkbox"/> Otro material</label>
 </div>
+<input class="oi" id="omi" oninput="u()" placeholder="Escribe el material..." style="display:none" type="text"/>
 </div>
 <div class="fg">
 <label>Color</label>
