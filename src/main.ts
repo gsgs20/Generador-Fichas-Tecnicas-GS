@@ -64,6 +64,61 @@ function waitForImageLoad(image: HTMLImageElement, source: string): Promise<void
   });
 }
 
+const IMAGE_SIZE_MIN = 25;
+const IMAGE_SIZE_MAX = 100;
+
+type ImageSizeControl = {
+  sliderId: string;
+  numberId: string;
+  imageId: string;
+};
+
+function clampImageSize(value: number): number {
+  if (!Number.isFinite(value)) return 100;
+  return Math.min(IMAGE_SIZE_MAX, Math.max(IMAGE_SIZE_MIN, Math.round(value)));
+}
+
+function rangeProgress(value: number): string {
+  const progress = ((value - IMAGE_SIZE_MIN) / (IMAGE_SIZE_MAX - IMAGE_SIZE_MIN)) * 100;
+  return `${progress}%`;
+}
+
+function applyImageSize(control: ImageSizeControl, rawValue: number, syncNumber = true): void {
+  const value = clampImageSize(rawValue);
+  const slider = byId<HTMLInputElement>(control.sliderId);
+  const number = byId<HTMLInputElement>(control.numberId);
+  const image = byId<HTMLImageElement>(control.imageId);
+
+  slider.value = String(value);
+  slider.style.setProperty("--range-progress", rangeProgress(value));
+  if (syncNumber) number.value = String(value);
+  image.style.setProperty("--user-image-scale", String(value / 100));
+}
+
+function setupImageSizeControl(control: ImageSizeControl): void {
+  const slider = byId<HTMLInputElement>(control.sliderId);
+  const number = byId<HTMLInputElement>(control.numberId);
+
+  slider.addEventListener("input", () => {
+    applyImageSize(control, Number.parseFloat(slider.value));
+  });
+
+  number.addEventListener("input", () => {
+    const value = Number.parseFloat(number.value);
+    if (Number.isFinite(value) && value >= IMAGE_SIZE_MIN && value <= IMAGE_SIZE_MAX) {
+      applyImageSize(control, value, false);
+    }
+  });
+
+  const normalizeNumber = (): void => {
+    applyImageSize(control, Number.parseFloat(number.value));
+  };
+  number.addEventListener("change", normalizeNumber);
+  number.addEventListener("blur", normalizeNumber);
+
+  applyImageSize(control, Number.parseFloat(number.value));
+}
+
 async function loadUserImage(inputId: string, previewImageId: string, fileNameId: string): Promise<void> {
   const input = byId<HTMLInputElement>(inputId);
   const status = byId<HTMLElement>(fileNameId);
@@ -285,6 +340,17 @@ window.tA = () => {
   toggleOtherAssembly();
   updatePreview();
 };
+
+setupImageSizeControl({
+  sliderId: "image-page-one-size",
+  numberId: "image-page-one-size-number",
+  imageId: "page-one-image"
+});
+setupImageSizeControl({
+  sliderId: "image-page-two-size",
+  numberId: "image-page-two-size-number",
+  imageId: "page-two-image"
+});
 
 byId<HTMLInputElement>("image-page-one").addEventListener("change", () => {
   void loadUserImage("image-page-one", "page-one-image", "image-page-one-name");

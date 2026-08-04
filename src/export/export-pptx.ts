@@ -46,23 +46,41 @@ function imageToPngData(image: HTMLImageElement): string {
   return canvas.toDataURL("image/png");
 }
 
+function imageScaleValue(inputId: string): number {
+  const value = Number.parseFloat(byId<HTMLInputElement>(inputId).value);
+  const percentage = Number.isFinite(value) ? Math.min(100, Math.max(25, value)) : 100;
+  return percentage / 100;
+}
+
 function containImage(
   x: number,
   y: number,
   w: number,
   h: number,
-  image: HTMLImageElement
+  image: HTMLImageElement,
+  scale = 1
 ): { x: number; y: number; w: number; h: number } {
   const imageRatio = image.naturalWidth / image.naturalHeight;
   const boxRatio = w / h;
+  let fittedWidth: number;
+  let fittedHeight: number;
 
   if (imageRatio >= boxRatio) {
-    const fittedHeight = w / imageRatio;
-    return { x, y: y + (h - fittedHeight) / 2, w, h: fittedHeight };
+    fittedWidth = w;
+    fittedHeight = w / imageRatio;
+  } else {
+    fittedWidth = h * imageRatio;
+    fittedHeight = h;
   }
 
-  const fittedWidth = h * imageRatio;
-  return { x: x + (w - fittedWidth) / 2, y, w: fittedWidth, h };
+  const scaledWidth = fittedWidth * scale;
+  const scaledHeight = fittedHeight * scale;
+  return {
+    x: x + (w - scaledWidth) / 2,
+    y: y + (h - scaledHeight) / 2,
+    w: scaledWidth,
+    h: scaledHeight
+  };
 }
 
 function buildFixedBackground(pageNumber: 1 | 2): string {
@@ -179,7 +197,7 @@ function addPageOne(pptx: PptxGenJS, backgroundData: string): void {
   const productImageBox = { x: 1.6275, y: 1.1762, w: 5.0017, h: 4.6637 };
   slide.addImage({
     data: imageToPngData(productImage),
-    ...containImage(productImageBox.x, productImageBox.y, productImageBox.w, productImageBox.h, productImage),
+    ...containImage(productImageBox.x, productImageBox.y, productImageBox.w, productImageBox.h, productImage, imageScaleValue("image-page-one-size-number")),
     altText: "Imagen del equipo",
     objectName: "Imagen editable del equipo"
   });
@@ -305,7 +323,7 @@ function addPageTwo(pptx: PptxGenJS, backgroundData: string): void {
   const technicalImageBox = { x: 1.1322, y: 1.8199, w: 5.9922, h: 2.2177 };
   slide.addImage({
     data: imageToPngData(technicalImage),
-    ...containImage(technicalImageBox.x, technicalImageBox.y, technicalImageBox.w, technicalImageBox.h, technicalImage),
+    ...containImage(technicalImageBox.x, technicalImageBox.y, technicalImageBox.w, technicalImageBox.h, technicalImage, imageScaleValue("image-page-two-size-number")),
     altText: "Plano técnico del equipo",
     objectName: "Imagen editable del plano"
   });

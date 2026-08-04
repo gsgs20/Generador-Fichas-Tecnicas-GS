@@ -50,6 +50,19 @@
 <label class="file-picker" for="image-page-one"><span>Seleccionar imagen del equipo</span></label>
 <input class="file-input" id="image-page-one" type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"/>
 <span class="file-name" id="image-page-one-name"></span>
+<div class="image-size-control">
+<div class="image-size-control-head">
+<label for="image-page-one-size">Tamaño de la imagen</label>
+<span>25–100%</span>
+</div>
+<div class="image-size-control-row">
+<input aria-label="Tamaño de la imagen del equipo" class="image-size-range" id="image-page-one-size" min="25" max="100" step="1" type="range" value="100"/>
+<label class="image-size-number" for="image-page-one-size-number">
+<input aria-label="Porcentaje exacto de tamaño de la imagen del equipo" id="image-page-one-size-number" min="25" max="100" step="1" type="number" value="100"/>
+<span>%</span>
+</label>
+</div>
+</div>
 </div>
 <div class="slbl">Página 2 — Plano y dimensiones</div>
 <div class="fg image-upload-group">
@@ -58,6 +71,19 @@
 <label class="file-picker" for="image-page-two"><span>Seleccionar imagen del plano</span></label>
 <input class="file-input" id="image-page-two" type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"/>
 <span class="file-name" id="image-page-two-name"></span>
+<div class="image-size-control">
+<div class="image-size-control-head">
+<label for="image-page-two-size">Tamaño de la imagen</label>
+<span>25–100%</span>
+</div>
+<div class="image-size-control-row">
+<input aria-label="Tamaño de la imagen del plano" class="image-size-range" id="image-page-two-size" min="25" max="100" step="1" type="range" value="100"/>
+<label class="image-size-number" for="image-page-two-size-number">
+<input aria-label="Porcentaje exacto de tamaño de la imagen del plano" id="image-page-two-size-number" min="25" max="100" step="1" type="number" value="100"/>
+<span>%</span>
+</label>
+</div>
+</div>
 </div>
 <div class="fg">
 <label>Scale Model (Equipo sin caja)</label>
