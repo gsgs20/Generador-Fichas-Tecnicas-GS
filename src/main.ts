@@ -19,7 +19,7 @@ function inputValue(id: string): string {
 
 function getCheckedValues(containerId: string): string[] {
   return Array.from(document.querySelectorAll<HTMLInputElement>(`#${containerId} input[type="checkbox"]:checked`))
-    .filter((element) => element.id !== "oc")
+    .filter((element) => element.id !== "oc" && element.id !== "oa")
     .map((element) => element.value);
 }
 
@@ -171,6 +171,8 @@ function updatePreview(): void {
   byId("pcol").textContent = colors.length ? `${colors.join(", ")}.` : "-";
 
   const assembly = getCheckedValues("asm");
+  const otherAssembly = inputValue("oai");
+  if (byId<HTMLInputElement>("oa").checked && otherAssembly) assembly.push(otherAssembly);
   byId("pasm").textContent = assembly.length ? `${assembly.join(", ")}.` : "-";
 
   requestAnimationFrame(fitAllText);
@@ -192,6 +194,13 @@ function toggle(type: ToggleType, value: boolean): void {
 function toggleOtherColor(): void {
   const checkbox = byId<HTMLInputElement>("oc");
   const input = byId<HTMLInputElement>("oi");
+  input.style.display = checkbox.checked ? "block" : "none";
+  if (!checkbox.checked) input.value = "";
+}
+
+function toggleOtherAssembly(): void {
+  const checkbox = byId<HTMLInputElement>("oa");
+  const input = byId<HTMLInputElement>("oai");
   input.style.display = checkbox.checked ? "block" : "none";
   if (!checkbox.checked) input.value = "";
 }
@@ -249,12 +258,17 @@ declare global {
     u: () => void;
     tog: (type: ToggleType, value: boolean) => void;
     tO: () => void;
+    tA: () => void;
   }
 }
 window.u = updatePreview;
 window.tog = toggle;
 window.tO = () => {
   toggleOtherColor();
+  updatePreview();
+};
+window.tA = () => {
+  toggleOtherAssembly();
   updatePreview();
 };
 
