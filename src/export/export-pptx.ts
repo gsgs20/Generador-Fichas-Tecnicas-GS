@@ -371,10 +371,10 @@ function addPageTwo(pptx: PptxGenJS, backgroundData: string): void {
   const mfgX = px(79.1);
   const mfgY = px(671.28);
   const mfgCols = [px(101.82), px(215.7)];
-  const mfgRows = [px(33), px(26), px(29), px(58), px(28)];
+  const mfgTitleH = px(33);
   const mfgW = mfgCols[0] + mfgCols[1];
 
-  addFilledCell(slide, "Manufacturing", mfgX, mfgY, mfgW, mfgRows[0], COLORS.yellow, {
+  addFilledCell(slide, "Manufacturing", mfgX, mfgY, mfgW, mfgTitleH, COLORS.yellow, {
     fontSize: 12,
     bold: true,
     align: "center",
@@ -383,24 +383,34 @@ function addPageTwo(pptx: PptxGenJS, backgroundData: string): void {
   });
 
   const manufacturingRows = [
-    ["Technology", "3D Printing (FDM).", COLORS.grey],
-    ["Materials", elementText("pmat"), COLORS.light],
-    ["Color", elementText("pcol"), COLORS.grey],
-    ["Assembly", elementText("pasm"), COLORS.light]
+    { label: "Technology", value: "3D Printing (FDM).", fill: COLORS.grey, elementId: null, rowSelector: ".mfg-row-tech", minHeightPx: 26 },
+    { label: "Materials", value: elementText("pmat"), fill: COLORS.light, elementId: "pmat", rowSelector: ".mfg-row-materials", minHeightPx: 29 },
+    { label: "Color", value: elementText("pcol"), fill: COLORS.grey, elementId: "pcol", rowSelector: ".mfg-row-color", minHeightPx: 58 },
+    { label: "Assembly", value: elementText("pasm"), fill: COLORS.light, elementId: "pasm", rowSelector: ".mfg-row-assembly", minHeightPx: 28 }
   ] as const;
 
-  let mfgRowY = mfgY + mfgRows[0];
-  manufacturingRows.forEach(([label, value, fill], index) => {
-    const h = mfgRows[index + 1];
+  const mfgTable = byId<HTMLElement>("page-two").querySelector<HTMLElement>(".manufacturing-table");
+  let mfgRowY = mfgY + mfgTitleH;
+  manufacturingRows.forEach(({ label, value, fill, elementId, rowSelector, minHeightPx }) => {
+    const rowElement = mfgTable?.querySelector<HTMLElement>(rowSelector);
+    const measuredHeightPx = rowElement ? Math.ceil(rowElement.getBoundingClientRect().height) : minHeightPx;
+    const h = px(Math.max(minHeightPx, measuredHeightPx));
+    const fontSize = elementId ? computedFontPt(elementId, 10) : 10;
+    const isExpanded = measuredHeightPx > minHeightPx + 1;
+    const valueValign = isExpanded ? "top" : "middle";
+    const valueMargin: [number, number, number, number] = isExpanded
+      ? [3.8, 7.2, 3.8, 7.2]
+      : [0, 7.2, 0, 7.2];
+
     addFilledCell(slide, label, mfgX, mfgRowY, mfgCols[0], h, fill, {
-      valign: index === 2 ? "top" : "middle",
-      margin: index === 2 ? [5.2, 7.2, 0, 7.2] : [0, 7.2, 0, 7.2],
+      valign: "middle",
+      margin: [0, 7.2, 0, 7.2],
       objectName: `Manufacturing ${label}`
     });
     addFilledCell(slide, value, mfgX + mfgCols[0], mfgRowY, mfgCols[1], h, fill, {
-      fontSize: label === "Color" ? computedFontPt("pcol", 10) : label === "Materials" ? computedFontPt("pmat", 10) : label === "Assembly" ? computedFontPt("pasm", 10) : 10,
-      valign: index === 2 ? "top" : "middle",
-      margin: index === 2 ? [5.2, 7.2, 0, 7.2] : [0, 7.2, 0, 7.2],
+      fontSize,
+      valign: valueValign,
+      margin: valueMargin,
       objectName: `Manufacturing value ${label}`
     });
     mfgRowY += h;

@@ -101,13 +101,18 @@ button,input{font:inherit}
 .dim-cell{display:flex;align-items:center;justify-content:center;padding:0 9.6px;text-align:center;overflow:hidden}
 .dim-grey{background:#cbcbcb}.dim-light{background:#f4f4f4}.dim-bold{font-weight:900}
 
-.manufacturing-table{position:absolute;left:79.10px;top:671.28px;width:317.52px;height:174px;font-size:13.333px;line-height:1;overflow:hidden}
+.manufacturing-table{position:absolute;left:79.10px;top:671.28px;width:317.52px;min-height:174px;height:auto;font-size:13.333px;line-height:1;overflow:visible}
 .mfg-title{height:33px;background:#ffd200;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900}
-.mfg-row{display:grid;grid-template-columns:101.82px 215.70px;align-items:center}
-.mfg-row:nth-of-type(2){height:26px}.mfg-row:nth-of-type(3){height:29px}.mfg-row:nth-of-type(4){height:58px}.mfg-row:nth-of-type(5){height:28px}
-.mfg-row span{height:100%;display:flex;align-items:center;padding:0 9.6px;overflow:hidden}
+.mfg-row{display:grid;grid-template-columns:101.82px 215.70px;align-items:stretch;height:auto}
+.mfg-row-tech{min-height:26px}
+.mfg-row-materials{min-height:29px}
+.mfg-row-color{min-height:58px}
+.mfg-row-assembly{min-height:28px}
+.mfg-row span{display:flex;min-height:100%;padding:4px 9.6px;overflow:visible;white-space:normal;word-break:break-word;line-height:1.08}
+.mfg-row span:first-child{align-items:center;white-space:nowrap;word-break:normal}
+.mfg-row span:last-child{align-items:center}
+.mfg-row.is-expanded span:last-child{align-items:flex-start;padding-top:5px;padding-bottom:5px}
 .mfg-grey{background:#cbcbcb}.mfg-light{background:#f4f4f4}
-.mfg-color span{align-items:flex-start;padding-top:7px;line-height:1.08}
 
 .storage-table{position:absolute;left:414.20px;top:672.27px;width:318.66px;height:152px;font-size:13.333px;line-height:1;overflow:hidden}
 .storage-title{height:34px;background:#ffd200;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900}
