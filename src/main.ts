@@ -182,29 +182,6 @@ function fitAllText(): void {
   document.querySelectorAll<HTMLElement>(".fit-text").forEach(fitElement);
 }
 
-function syncManufacturingTable(): void {
-  const table = byId<HTMLElement>("page-two").querySelector<HTMLElement>(".manufacturing-table");
-  if (!table) return;
-
-  const rows = [
-    { selector: ".mfg-row-tech", minHeight: 26 },
-    { selector: ".mfg-row-materials", minHeight: 29 },
-    { selector: ".mfg-row-color", minHeight: 58 },
-    { selector: ".mfg-row-assembly", minHeight: 28 }
-  ];
-
-  rows.forEach(({ selector, minHeight }) => {
-    const row = table.querySelector<HTMLElement>(selector);
-    if (!row) return;
-    row.classList.remove("is-expanded");
-    row.style.height = "auto";
-    const measuredHeight = Math.ceil(row.getBoundingClientRect().height);
-    const finalHeight = Math.max(minHeight, measuredHeight);
-    row.style.height = `${finalHeight}px`;
-    row.classList.toggle("is-expanded", finalHeight > minHeight + 1);
-  });
-}
-
 function updatePreview(): void {
   const productName = inputValue("fn");
   const scaleB = inputValue("fsb");
@@ -255,10 +232,7 @@ function updatePreview(): void {
   if (byId<HTMLInputElement>("oa").checked && otherAssembly) assembly.push(otherAssembly);
   byId("pasm").textContent = assembly.length ? `${assembly.join(", ")}.` : "-";
 
-  requestAnimationFrame(() => {
-    fitAllText();
-    syncManufacturingTable();
-  });
+  requestAnimationFrame(fitAllText);
 }
 
 function toggle(type: ToggleType, value: boolean): void {

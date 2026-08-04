@@ -101,17 +101,15 @@ button,input{font:inherit}
 .dim-cell{display:flex;align-items:center;justify-content:center;padding:0 9.6px;text-align:center;overflow:hidden}
 .dim-grey{background:#cbcbcb}.dim-light{background:#f4f4f4}.dim-bold{font-weight:900}
 
-.manufacturing-table{position:absolute;left:79.10px;top:671.28px;width:317.52px;min-height:174px;height:auto;font-size:13.333px;line-height:1;overflow:visible}
-.mfg-title{height:33px;background:#ffd200;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900}
-.mfg-row{display:grid;grid-template-columns:101.82px 215.70px;align-items:stretch;height:auto}
-.mfg-row-tech{min-height:26px}
-.mfg-row-materials{min-height:29px}
-.mfg-row-color{min-height:58px}
-.mfg-row-assembly{min-height:28px}
-.mfg-row span{display:flex;min-height:100%;padding:4px 9.6px;overflow:visible;white-space:normal;word-break:break-word;line-height:1.08}
-.mfg-row span:first-child{align-items:center;white-space:nowrap;word-break:normal}
-.mfg-row span:last-child{align-items:center}
-.mfg-row.is-expanded span:last-child{align-items:flex-start;padding-top:5px;padding-bottom:5px}
+.manufacturing-table{position:absolute;left:79.10px;top:671.28px;width:317.52px;height:auto;font-size:13.333px;line-height:1;overflow:visible}
+.mfg-title{height:33.524px;background:#ffd200;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900}
+.mfg-row{display:grid;grid-template-columns:101.820px 215.698px;align-items:stretch;height:auto}
+.mfg-row-tech{min-height:24px}
+.mfg-row-materials{min-height:28.687px}
+.mfg-row-color{min-height:29.443px}
+.mfg-row-assembly{min-height:28.951px}
+.mfg-row span{display:flex;align-items:center;min-width:0;padding:0 9.6px;overflow:visible;white-space:normal;overflow-wrap:break-word;word-break:normal;line-height:1}
+.mfg-row span:first-child{white-space:nowrap;overflow-wrap:normal}
 .mfg-grey{background:#cbcbcb}.mfg-light{background:#f4f4f4}
 
 .storage-table{position:absolute;left:414.20px;top:672.27px;width:318.66px;height:152px;font-size:13.333px;line-height:1;overflow:hidden}
